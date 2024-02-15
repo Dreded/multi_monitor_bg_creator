@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "python-triplemonitorbg-creator"
+version = "0.1.0"
+description = ""
+authors = ["Dreded <git@dredx.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.13"
+opencv-python = "^4.9.0.80"
+
+
+[tool.poetry.group.dev.dependencies]
+pyinstaller = "^6.4.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
