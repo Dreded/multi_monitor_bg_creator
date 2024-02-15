@@ -33,7 +33,7 @@ options:
   -h, --help            show this help message and exit
   -mr MONITOR_RES, --monitor_res MONITOR_RES
                         Enter in your monitor resolution[s] '1920x1080' multiple -mr for
-                        multiple monitors
+                        multiple monitors default = [1920x1080, 2560x1440, 1920x1080]
   -o OUTPUT, --output OUTPUT
                         Output filename eg '/tmp/image.jpg'
 ```
