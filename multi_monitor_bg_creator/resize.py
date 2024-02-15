@@ -27,6 +27,19 @@ class Resizer():
         for start,end in zip(edges[:-1].astype(int), edges[1:].astype(int)):
             self.split_images.append(self.orig_image[0:height, start:end])
 
+    def add_borders(self,resolution,i):
+        if resolution[0] < self.max_width:
+            # I may be wrong but dont think this would ever be desired
+            # here for easy addition in future if needed.
+            pass
+
+        if resolution[1] < self.max_height:
+            print("\tAdding Border to Height(centered)")
+            border_size = int((self.max_height - resolution[1])/2)
+            border_added = cv2.copyMakeBorder(self.split_images[i],border_size,border_size,0,0,cv2.BORDER_CONSTANT)
+            self.split_images[i] = border_added
+
+
     def resize(self):
         i = 0
         for resolution in self.desired_res:
@@ -37,15 +50,7 @@ class Resizer():
             print(f"Image {i}: Desired = {resolution}\t Current = {image_res}")
             if resolution == image_res:
                 print("\tDesired resolution already met, adding borders as needed.")
-                if resolution[0] < self.max_width:
-                    # I may be wrong but dont think this would ever be desired
-                    # here for easy addition in future if needed.
-                    pass
-                if resolution[1] < self.max_height:
-                    print("\tAdding Border to Height(centered)")
-                    border_size = int((self.max_height - resolution[1])/2)
-                    border_added = cv2.copyMakeBorder(self.split_images[i],border_size,border_size,0,0,cv2.BORDER_CONSTANT)
-                    self.split_images[i] = border_added
+                self.add_borders(resolution,i)
 
             else:
                 print("\tResizing...")
@@ -54,6 +59,7 @@ class Resizer():
                 image_res = [w,h]
                 print(f"\tResized to: {image_res}")
                 self.split_images[i] = resized
+                self.add_borders(resolution,i)
             i = i+1
 
     def rejoin(self):

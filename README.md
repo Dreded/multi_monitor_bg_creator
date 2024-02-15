@@ -2,13 +2,17 @@
 This is meant for when you have 2,3 or more monitors with different resolutions
 but would like to place a multi-monitor image on them and have it displayed correctly.
 it defaults to a 3 monitor setup where the 2 side monitors are 1920x1080 and the center is 2560x1440.
-the images can easily be found by searching google for `5760x1080 background [insert search terms here]`
+the images can easily be found by searching google for `5760x1080 background [insert search terms here]`  
+  
+Currently only for monitors arranged horizontally.(if you have a suggestion for vertical let me know)
 
 ## Install
 * `poetry install`
 
 ## Run
 * python main.py [image_file]
+* * It will show you the output before it saves, simply press any key on preview to close it.(TODO: allow not saving)
+* * image_file can be any size it will split into desired_resolution[x] images then resize/add borders to top/bottom as needed.
 * for help `python main.py -h`  
 
 ```
@@ -30,3 +34,21 @@ options:
 `poetry install --with dev`  
 `pyinstaller --onefile main.py`  
 binary will be in dist/main[.exe]
+
+## Example Output
+```
+Splitting into 3 images from 7680 x 2160
+Image 0: Desired = [1920, 1080]  Current = [2560, 2160]
+        Resizing...
+        Resized to: [1920, 1080]
+        Adding Border to Height(centered)
+
+Image 1: Desired = [2560, 1440]  Current = [2560, 2160]
+        Resizing...
+        Resized to: [2560, 1440]
+
+Image 2: Desired = [1920, 1080]  Current = [2560, 2160]
+        Resizing...
+        Resized to: [1920, 1080]
+        Adding Border to Height(centered)
+```
