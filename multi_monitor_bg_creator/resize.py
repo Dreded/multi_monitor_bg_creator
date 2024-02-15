@@ -137,6 +137,7 @@ class Resizer():
         if self.overwrite:
             if self.multi_save:
                 quit("How do you expect to overwrite the original and save to multiple files?")
+
             print(f"You will be overwriting the image at {self.orig_full_name}")
             print("You will still be able to [q]uit at the image preview without overwrite")
             key = input("Enter 'y' to continue: ")
