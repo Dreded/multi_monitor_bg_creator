@@ -19,7 +19,7 @@ If you are not familiar with poetry it will create a venv and install to that as
 
 ## Run
 * python main.py [image_file]
-* * It will show you the output before it saves, simply press any key on preview to close it.(TODO: allow not saving)
+* * It will show you the output before it saves, simply press any key on preview to close and save or close the window/press q to not save.
 * * image_file can be any size it will split into desired_resolution[x] images then resize/add borders to top/bottom as needed.
 * for help `python main.py -h`  
 
