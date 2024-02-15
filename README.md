@@ -45,6 +45,13 @@ options:
 binary will be in dist/main[.exe]
 
 ## Example Output
+### With Windows Stretch and an image of 3840x1280(dual screen res)
+![Example_Without](example/example_without.jpg)
+
+### Used this program to stretch it to 6400x1440(triple screen res)
+As you can see, the image is not zoomed in like it is with the windows method.
+![Example_With](example/example_with.jpg)
+
 Keep in mind that when on an actual multi-monitor setup if your monitors are aligned then so is the image as it spans them.
 ### Vertical res larger than all monitors...
 ```
