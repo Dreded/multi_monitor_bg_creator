@@ -7,7 +7,7 @@ def quit(reason = None):
     sys.exit(reason)
 
 class Resizer():
-    def __init__(self,image,desired_resolution):
+    def __init__(self,image,desired_resolution, multi_save):
         self.orig_image = cv2.imread(image)
         self.orig_name, self.orig_ext = os.path.splitext(image)
         self.orig_height, self.orig_width, _ = self.orig_image.shape
@@ -15,6 +15,7 @@ class Resizer():
         self.output_res = [0,0]
         self.monitor_count = len(desired_resolution)
         self.split_images = []
+        self.multi_save = multi_save
 
         #probably won't need height but grab it anyhow
         self.max_width = 0
@@ -93,8 +94,17 @@ class Resizer():
         return f"{name}_{res}{ext}"
 
     def save(self, output_file_name):
-        cv2.imwrite(output_file_name, self.joined)
-        print(f"Saved to: {output_file_name}")
+        if self.multi_save:
+            i = 0
+            for image in self.split_images:
+                #TODO: allow for custom name on multi-save
+                output_file = self.orig_name + "_" + str(i) + self.orig_ext
+                cv2.imwrite(output_file, image)
+                print(f"Saved to: {output_file}")
+                i += 1
+        else:
+            cv2.imwrite(output_file_name, self.joined)
+            print(f"Saved to: {output_file_name}")
 
     def do_default(self,ofilename=None):
         self.split()
@@ -108,9 +118,4 @@ class Resizer():
 
 if __name__ == "__main__":
     os.system("clear")
-    image = "image.jpg"
-    desired_resolution = [[1920,1080],
-                          [2560,1440],
-                          [1920,1080]]
-    resize = Resizer(image,desired_resolution)
-    resize.do_default()
+    print("Not meant to be run standalone.")
