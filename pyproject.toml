@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "python-triplemonitorbg-creator"
+name = "multi-monitor-bg-creator"
 version = "0.1.0"
 description = ""
 authors = ["Dreded <git@dredx.com>"]

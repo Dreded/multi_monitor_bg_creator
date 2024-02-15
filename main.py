@@ -1,4 +1,4 @@
-import python_triplemonitorbg_creator as resize
+import multi_monitor_bg_creator as resize
 import os
 import argparse
 
