@@ -7,15 +7,18 @@ def quit(reason = None):
     sys.exit(reason)
 
 class Resizer():
-    def __init__(self,image,desired_resolution, multi_save):
+    def __init__(self,image,desired_resolution,ofilename, multi_save, overwrite):
         self.orig_image = cv2.imread(image)
+        self.orig_full_name = image
         self.orig_name, self.orig_ext = os.path.splitext(image)
         self.orig_height, self.orig_width, _ = self.orig_image.shape
         self.desired_res = desired_resolution
-        self.output_res = [0,0]
+        self.output_res = self.calc_output_res()
         self.monitor_count = len(desired_resolution)
         self.split_images = []
         self.multi_save = multi_save
+        self.overwrite = overwrite
+        self.ofilename = ofilename
 
         #probably won't need height but grab it anyhow
         self.max_width = 0
@@ -87,34 +90,63 @@ class Resizer():
         self.output_res = [w,h]
         self.wait_or_exit()
 
+    def calc_output_res(self):
+        width = 0
+        height = 0
+        for res in self.desired_res:
+            width += res[0]
+            if res[1] > height:
+                height = res[1]
+        return [width,height]
+
     def suggest_filename(self):
         res = f"{self.output_res[0]}x{self.output_res[1]}"
         ext = self.orig_ext
         name = self.orig_name
-        return f"{name}_{res}{ext}"
+        if self.ofilename:
+            name = self.ofilename
+
+        filename = f"{name}_{res}{ext}"
+
+        if self.multi_save:
+            filenames = []
+            for x in range(self.monitor_count):
+                filenames.append(filename.replace(ext,f"_{x}{ext}"))
+            return filenames
+
+        return [filename]
 
     def save(self, output_file_name):
         if self.multi_save:
-            i = 0
-            for image in self.split_images:
-                #TODO: allow for custom name on multi-save
-                output_file = self.orig_name + "_" + str(i) + self.orig_ext
-                cv2.imwrite(output_file, image)
-                print(f"Saved to: {output_file}")
-                i += 1
-        else:
-            cv2.imwrite(output_file_name, self.joined)
-            print(f"Saved to: {output_file_name}")
+            for x in range(self.monitor_count):
+                cv2.imwrite(output_file_name[x], self.split_images[x])
+                print(f"Saved to: {output_file_name[x]}")
 
-    def do_default(self,ofilename=None):
+        else:
+            cv2.imwrite(output_file_name[0], self.joined)
+            print(f"Saved to: {output_file_name[0]}")
+
+    def set_file_name(self):
+        if self.overwrite:
+            print(f"You will be overwriting the image at {self.orig_full_name}")
+            print("You will still be able to [q]uit at the image preview without overwrite")
+            key = input("Enter 'y' to continue: ")
+            if key.upper() != 'Y':
+                quit("Exiting, Nothing done")
+            else:
+                return self.orig_full_name
+
+        return self.suggest_filename()
+
+    def do_default(self):
+        filename = self.set_file_name()
+        for file in filename:
+            print(f"Filename will be: {file}")
+
         self.split()
         self.resize()
         self.rejoin()
-        if not ofilename:
-            output_file_name = self.suggest_filename()
-        else:
-            output_file_name = ofilename
-        self.save(output_file_name)
+        self.save(filename)
 
 if __name__ == "__main__":
     os.system("clear")
