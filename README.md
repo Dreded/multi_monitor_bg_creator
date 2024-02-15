@@ -1,17 +1,21 @@
-# Mult-Monitor Background Image Resizer
+# Multi-Monitor Background Image Resizer
 Uses OpenCV to resize wallpaper for use on multimonitors.
 
 This is meant for when you have 2,3 or more monitors with different(or same) resolutions
 but would like to place a multi-monitor image on them and have it displayed correctly.
-it defaults to a 3 monitor setup where the 2 side monitors are 1920x1080 and the center is 2560x1440.
-the images can easily be found by searching google for `5760x1080 background [insert search terms here]`  
+It defaults to a 3 monitor setup where the 2 side monitors are 1920x1080 and the center is 2560x1440.
+
+Proper sized images can easily be found by searching google.  
+For example triple monitor, 1920*3x1080 `5760x1080 background [insert search terms here]`  
+It works surprisingly well to convert dual monitor backgrounds to triple monitor too.
   
 However any image size will work... see example at bottom for how it handles this.
   
 Currently only for monitors arranged horizontally.(if you have a suggestion for vertical let me know)
 
-## Install
-* `poetry install`
+## Setup
+* `poetry install`  
+If you are not familiar with poetry it will create a venv and install to that as to not mess up your system python packages you may need to `pip install poetry` first.
 
 ## Run
 * python main.py [image_file]
