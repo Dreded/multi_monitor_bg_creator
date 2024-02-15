@@ -11,7 +11,7 @@ However any image size will work... see example at bottom for how it handles thi
 Currently only for monitors arranged horizontally.(if you have a suggestion for vertical let me know)
 
 ## Setup
-* `poetry install`
+* `poetry install`  
 If you are not familiar with poetry it will create a venv and install to that as to not mess up your system python packages you may need to `pip install poetry` first.
 
 ## Run
