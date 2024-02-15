@@ -11,6 +11,21 @@ the images can easily be found by searching google for `5760x1080 background [in
 * python main.py [image_file]
 * for help `python main.py -h`  
 
+```
+usage: main.py [-h] [-dr DESIRED_RESOLUTION] [-o OUTPUT] image
+
+positional arguments:
+  image                 Image to split up
+
+options:
+  -h, --help            show this help message and exit
+  -dr DESIRED_RESOLUTION, --desired_resolution DESIRED_RESOLUTION
+                        An array of the desired resolutions
+                        default=[[1920,1080],[2560,1440],[1920,1080]]
+  -o OUTPUT, --output OUTPUT
+                        Output filename eg '/tmp/image.jpg'
+```
+
 ## Package to Binary
 `poetry install --with dev`  
 `pyinstaller --onefile main.py`  
