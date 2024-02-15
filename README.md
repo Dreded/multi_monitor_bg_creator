@@ -24,7 +24,7 @@ If you are not familiar with poetry it will create a venv and install to that as
 * for help `python main.py -h`  
 
 ```
-usage: main.py [-h] [-mr MONITOR_RES] [-o OUTPUT] image
+usage: main.py [-h] [-mr MONITOR_RES] [-o OUTPUT] [-m] [--overwrite] image
 
 positional arguments:
   image                 Image to split up
@@ -33,10 +33,12 @@ options:
   -h, --help            show this help message and exit
   -mr MONITOR_RES, --monitor_res MONITOR_RES
                         Enter in your monitor resolution[s] '1920x1080' multiple -mr for
-                        multiple monitors default = '-mr 1920x1080 -mr 2560x1440 -mr 1920x1080'
+                        multiple monitors default = '-mr 1920x1080 -mr 2560x1440 -mr
+                        1920x1080'
   -o OUTPUT, --output OUTPUT
                         Output filename eg '/tmp/image.jpg' (not for use with -m)
   -m, --multi_save      Save each split image to its own file.
+  --overwrite           Overwrite original image file
 ```
 
 ## Package to Binary

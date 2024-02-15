@@ -8,8 +8,9 @@ def quit(reason = None):
 
 class Resizer():
     def __init__(self,image,desired_resolution,ofilename, multi_save, overwrite):
-        self.orig_image = cv2.imread(image)
         self.orig_full_name = image
+        self.check_input_image()
+        self.orig_image = cv2.imread(image)
         self.orig_name, self.orig_ext = os.path.splitext(image)
         self.orig_height, self.orig_width, _ = self.orig_image.shape
         self.desired_res = desired_resolution
@@ -26,6 +27,12 @@ class Resizer():
         for resolution in desired_resolution:
             if resolution[0] > self.max_width: self.max_width = resolution[0]
             if resolution[1] > self.max_height: self.max_height = resolution[1]
+
+    def check_input_image(self):
+        if not os.path.isfile(self.orig_full_name):
+            quit("Input image does not exist or is not a file!")
+        if not cv2.haveImageReader(self.orig_full_name):
+            quit("OpenCV cannot handle this file, is it an image?")
 
     def split(self):
         height = self.orig_height
@@ -128,13 +135,15 @@ class Resizer():
 
     def set_file_name(self):
         if self.overwrite:
+            if self.multi_save:
+                quit("How do you expect to overwrite the original and save to multiple files?")
             print(f"You will be overwriting the image at {self.orig_full_name}")
             print("You will still be able to [q]uit at the image preview without overwrite")
             key = input("Enter 'y' to continue: ")
             if key.upper() != 'Y':
                 quit("Exiting, Nothing done")
             else:
-                return self.orig_full_name
+                return [self.orig_full_name]
 
         return self.suggest_filename()
 

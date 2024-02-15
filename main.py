@@ -15,8 +15,6 @@ def split_resolutions(res_list):
     return output
 
 def get_args():
-    # TODO: check if input image exists(probably in main script not here)
-
     parser = argparse.ArgumentParser(os.path.basename(__file__))
     parser.add_argument('image', help="Image to split up")
     parser.add_argument('-mr','--monitor_res', help="Enter in your monitor resolution[s] '1920x1080' multiple -mr for multiple monitors default = '-mr 1920x1080 -mr 2560x1440 -mr 1920x1080'", default=None,action='append')
