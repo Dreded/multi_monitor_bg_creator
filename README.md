@@ -40,6 +40,7 @@ options:
 binary will be in dist/main[.exe]
 
 ## Example Output
+Keep in mind that when on an actual multi-monitor setup if your monitors are aligned then so is the image as it spans them.
 ### Vertical res larger than all monitors...
 ```
 Splitting into 3 images from 7680 x 2160
@@ -58,6 +59,7 @@ Image 2: Desired = [1920, 1080]  Current = [2560, 2160]
         Adding Border to Height(centered)
 ```
 ![Oversized](example/example_2560xoversize_6400x1440.jpg)
+<sub><sup>Credit: https://www.reddit.com/r/WidescreenWallpaper/comments/1579dpa/art_tree_on_the_field_7680_x_2160/</sub></sup>
 
 ### Any Size image should work...
 #### Here is a weirdly sized single monitor bg image(actually produces a neat result)
@@ -76,6 +78,6 @@ Image 2: Desired = [1920, 1080]  Current = [512, 1024]
         Adding Border to Height(centered)
 ```
 ![Female_Hacker](example/female_hacker_6400x1440.jpg)
-
+<sub><sup>Credit: Uknown</sub></sup>
 
 
