@@ -1,6 +1,10 @@
 import cv2
 import numpy as np
 import os
+import sys
+
+def quit(reason = None):
+    sys.exit(reason)
 
 class Resizer():
     def __init__(self,image,desired_resolution):
@@ -32,7 +36,6 @@ class Resizer():
             # I may be wrong but dont think this would ever be desired
             # here for easy addition in future if needed.
             pass
-
         if resolution[1] < self.max_height:
             print("\tAdding Border to Height(centered)")
             border_size = int((self.max_height - resolution[1])/2)
@@ -62,13 +65,26 @@ class Resizer():
                 self.add_borders(resolution,i)
             i = i+1
 
+    def wait_or_exit(self):
+        while True:
+            pressedKey = cv2.waitKey(1) & 0xFF
+            if pressedKey == ord('q'):
+                quit("Image not saved. Press any-key except 'q' to save on preview window.")
+            #255 is no key, this effectively is the elusive any_key
+            elif pressedKey != 255:
+                break
+            if cv2.getWindowProperty('Output',cv2.WND_PROP_VISIBLE) < 1:        
+                cv2.destroyAllWindows()
+                quit("Image not saved. To Save run again and press any key on preview to save.")
+
+
     def rejoin(self):
         joined = cv2.hconcat(self.split_images)
         cv2.imshow("Output", joined)
         self.joined = joined
         h,w,_ = joined.shape
         self.output_res = [w,h]
-        cv2.waitKey(0)
+        self.wait_or_exit()
 
     def suggest_filename(self):
         res = f"{self.output_res[0]}x{self.output_res[1]}"
@@ -78,6 +94,7 @@ class Resizer():
 
     def save(self, output_file_name):
         cv2.imwrite(output_file_name, self.joined)
+        print(f"Saved to: {output_file_name}")
 
     def do_default(self,ofilename=None):
         self.split()
