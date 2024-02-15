@@ -1,4 +1,4 @@
-# Mult-Monitor Background Image Resizer
+# Multi-Monitor Background Image Resizer
 Uses OpenCV to resize wallpaper for use on multimonitors.
 
 This is meant for when you have 2,3 or more monitors with different(or same) resolutions
